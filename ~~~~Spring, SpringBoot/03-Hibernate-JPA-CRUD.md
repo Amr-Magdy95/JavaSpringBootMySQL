@@ -1,0 +1,24 @@
+- Just a reminder there're three layers here
+  - Spring JDBC
+  - Spring Data JDBC
+  - JPA with vendor implementation
+- Hibernate is a framework for saving java objects into a db.
+- Hibernate minimizes the amount of JDBC code you have to develop
+- Provides ORM --> mapping java classes to database tables
+- JPA is Jakarta Persistence API
+  - Standard API for ORM
+  - It's a specification that defines a standard way to manage relational data in Java applications.
+  - Only a specification
+  - At its core, JPA is an ORM tool. It acts as a bridge between the object-oriented world of your Java code and the relational world of databases. This lets you work with data using Java objects that represent your real-world entities, instead of writing complex SQL statements.
+  - JPA relies on an ORM provider (like Hibernate or EclipseLink) to implement its specifications.
+  - These providers take care of:
+    - Mapping Java classes to database tables
+    - Translating object operations to database queries
+  - Only a specification --> defines a set of interfaces and requires an implementation to be usable.
+    - Hibernate provides implementation for said interfaces, so does eclipselink
+  - https://www.jcp.org/en/jsr/detail?id=338
+  - https://hibernate.org/orm/documentation/6.5/
+  - entity manager is a special jpa helper object
+  - TypedQuery<Student> theQuery = entityManager.createQuery("from Student", Student.class)
+- The relationship between Hibernate/JPA and JDBC
+  - Hibernate/JPA uses JDBC for all DB communication; Hibernate/JPA is just another layer on top of JDBC

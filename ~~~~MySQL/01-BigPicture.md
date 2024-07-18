@@ -1,0 +1,52 @@
+- Database Server --has--> Databases --has--> Tables
+- Databases can be created, dropped, used
+- Tables can be created, dropped, queried, described
+  - DESC table_name; to describe a table
+- CRUD on Tables
+- Columns could be NOT NULL
+- Columns could have DEFAULT values
+- We could add a PRIMARY KEY, Unique Identifier, column for each row
+- We could add AUTO_INCREMENT to the PRIMARY KEY
+- CRUD
+  - Create a table using CREATE keyword
+  - Reading from a table using SELECT
+    - SELECT \* FROM cats;
+    - SELECT name FROM cats;
+    - SELECT name, age FROM cats;
+    - SELECT name FROM cats WHERE age < 5;
+  - Aliases
+    - SELECT cat_id AS id FROM cats;
+- Insert INTO table (col1, col2) VALUES(val1, val2);
+- Update
+  - UPDATE cats SET breed="blah" WHERE breed="blue";
+  - UPDATE cats SET breed="blah", name="cat" WHERE name="kitty";
+  - try selecting before updating
+- DELETE
+  - DELETE FROM cats WHERE name="cat";
+- Most of SQL is about writing fancy SELECT queries
+- String Functions
+  - CONCAT --> combining strings for cleaner output
+    - CONCAT(col1, col2, ....,coln)
+    - SELECT CONCAT(fname, ' ', lname) AS 'Full Name' FROM books;
+    - CONCAT_WS(separator, col1, col2, ...,col2); WS = With Separator
+    - SELECT CONCAT_WS(' ', fname, lname) AS 'Full Name' FROM books;
+      -SUBSTRING
+      - SELECT SUBSTRING("Hello World", 1, 4); // from index 1 for length of 4
+      - SUBSTRING("Hello World", 4); // start at ind 4 and go to the end
+      - SUBSTRING("Hello World" FROM 4);
+      - SUBSTRING("Hello World" FROM 4 FOR 2);
+    - Combine SUBSTRING with CONCAT
+      - SELECT CONCAT(SUBSTR(title, 1, 10), '...') AS 'short title' FROM books;
+    - REPLACE
+      - replace parts of a string
+      - REPLACE(string_to_operate_on, to_replace, to_replace_with);
+      - SELECT REPLACE("Hello World", "hello", "hola");
+    - REVERSE
+      - SELECT REVERSE("HELLO WORLD");
+    - CHAR_LENGTH
+      - SELECT CHAR_LENGTH("Hello");
+    - UPPER and LOWER
+      - SELECT LOWER("HELLO");
+      - SELECT UPPER("hello");
+    - OTHER STRING FUNCTIONS
+      - INSERT, LEFT, RIGHT, REPEAT, TRIM(LEADING/TRAILING/BOTH);
