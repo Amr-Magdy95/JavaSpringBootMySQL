@@ -1,3 +1,5 @@
+## Big Picture
+
 - Database Server --has--> Databases --has--> Tables
 - Databases can be created, dropped, used
 - Tables can be created, dropped, queried, described
