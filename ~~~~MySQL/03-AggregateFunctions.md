@@ -31,3 +31,56 @@ SELECT author_lname, COUNT(\*) AS 'books_written' FROM books GROUP BY author_lna
 ```sql
 SELECT MAX(pages) FROM books;
 ```
+
+## Subqueries
+
+```sql
+  SELECT title, pages FROM books ORDER BY pages DESC LIMIT 1;
+
+  SELECT *
+  FROM books
+  WHERE pages = (SELECT MIN(pages)
+  FROM books);
+```
+
+## GROUP BY Multiple Columns
+
+```sql
+  SELECT author_lname, author_fname COUNT(*) FROM books
+  GROUP BY author_lname, author_fname;
+  SELECT CONCAT_WS(" ",author_lname, author_fname) AS FROM books
+  GROUP BY author;
+```
+
+## MIN and MAX with GROUP BY
+
+```sql
+SELECT *, MIN(released_year) AS 'first_book' FROM books
+GROUP BY author_lname, author_fname
+```
+
+## SUM
+
+> straightforward
+
+```sql
+  SELECT SUM(pages) FROM books;
+
+  SELECT author_lname, SUM(pages)
+  FROM books
+  GROUP BY pages;
+```
+
+## AVG
+
+> Average
+
+```sql
+SELECT AVG(stock_quantity) FROM books;
+
+SELECT AVG(stock_quantity)
+FROM books
+GROUP BY released_year;
+```
+
+## DOCS FOR Aggregate Functions

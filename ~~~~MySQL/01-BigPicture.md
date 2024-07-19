@@ -13,6 +13,9 @@
 
   USE books;
 
+  show databases;
+  select database();
+
 ```
 
 ## Tables
@@ -20,6 +23,7 @@
 > Tables can be created, dropped, queried, described
 
 ```sql
+  show tables;
   CREATE TABLE Persons (
     PersonID int NOT NULL AUTO_INCREMENT,
     LastName varchar(255) DEFAULT 'doe',
