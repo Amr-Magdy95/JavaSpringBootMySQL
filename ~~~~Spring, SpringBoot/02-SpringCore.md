@@ -107,32 +107,105 @@ public class DemoController{
 }
 ```
 
-- Primary
-  - Alternate to Qualifier
-  - @Component @Primary for a certain implementation
-  - @Qualifier is better
-- Lazy Initialization
-  - By default all beans are initialized
-  - @Component @Lazy
-  - tedious for all classes
-  - could be set globally
-  - spring.main.lazy-initialization=true
-- Bean Scopes
-  - Scope refers to lifecycle of a bean, how long does it live? how many instances? how is the bean shared?
-  - default scope is singleton
-  - @Component @Scope(configurableBeanFactory.SCOPE_SINGLETON)
-  - singleton, prototype, request, session, application, websocket
-- Bean Lifecycle methods
-  - Container started, DI'ed, Spring processing, Custom init method,
-  - You can add custom code during bean initialization or destruction
-  - @PostConstruct @PreDestroy
-- Java Config Beans
-  - No annotations, just java
-  - @Configuration class @Bean to config bean, inject bean into controller
-  - instead of @Component
-  - making existing 3rd party code available to spring and use it as a bean
-  -
+## Primary
 
+> Alternative to `@Qualifier`
+> Only one per multiple implementations
+> `@Qualifier` is better
+
+```java
+  @Component
+  @Primary
+  public class TrackCoach implements Coach{}
 ```
 
+## Lazy Initialization
+
+> By default all beans are initialized when the app starts
+
+> tedious for all classes
+
+> could be set globally
+
+> spring.main.lazy-initialization=true
+
+By defining a class to be lazy, a bean will only be initialized in these cases
+
+- Needed for DI
+- Explicitly requested
+
+```java
+@Component
+@Lazy
+public class TennisCoach implements Coach{}
+```
+
+## Bean Scopes
+
+> Scope refers to lifecycle of a bean, how long does it live? how many instances? how is the bean shared?
+
+> default scope is singleton --> spring container creates only one instance of the bean by default
+> Cached in Memory
+> All dependency injections for the bean will reference the same bean
+
+```java
+@Component
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+public class CricketCoach implements Coach{}
+```
+
+| Scope       | Description                                                            |
+| ----------- | ---------------------------------------------------------------------- |
+| Singleton   | Creates a single shared instance of bean.                              |
+| Prototype   | Creates a new bean instance for each injection-point/container-request |
+| Request     | Scoped to an HTTP web request. Only used for Web Apps                  |
+| Session     | Scoped to an HTTP web session. Only used for Web Apps                  |
+| Application | Scoped to a web app ServletContext. Only used for Web Apps             |
+| Websocket   | Scoped to a web socket. Only used for Web Apps                         |
+
+> check by reference to know if the beans are the same
+
+## Bean Lifecycle methods
+
+> Container started,beans instantiated , DI'ed, Internal Spring processing, Custom init method, Beans are ready for use
+> You can add custom code during bean initialization or destruction
+
+```java
+@Component
+public class CricketCoach implements Coach{
+
+  @PostConstruct
+  public void doStartUpStuff(){
+    // runs after constructor
+  }
+
+  @PreDestroy
+  public void cleanup()(){
+
+  }
+}
+```
+
+> For "prototype" scoped beans, Spring does not call the destroy method. Gasp!
+
+> Thus, although initialization lifecycle callback methods are called on all objects regardless of scope, in the case of prototypes, configured destruction lifecycle callbacks are not called. The client code must clean up prototype-scoped objects and release expensive resources that the prototype bean(s) are holding.
+
+## Java Config Beans
+
+> No annotations, just java
+> instead of @Component
+> making existing 3rd party code available to spring and use it as a bean
+
+```java
+public class SwimCoach implements Coach{ }
+@Configuration
+public class SportsConfig{
+
+  @Bean
+  // @Bean("aquatic") --> setting the bean-id
+  public Coach swimCoach(){ //bean id defaults to the method name -- by careful what you call this method
+    return new SwimCoach();
+  }
+}
+// regular injection afterwards
 ```
